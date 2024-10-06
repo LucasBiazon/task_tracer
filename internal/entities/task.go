@@ -33,6 +33,9 @@ func NewTask(description string) *Task {
 type TaskRepository interface {
 	Create(Task *Task) error
 	FindAll() ([]*Task, error)
+	FindAllDone() ([]*Task, error)
+	FindAllInProgress() ([]*Task, error)
+	FindAllTodo() ([]*Task, error)
 	FindByID(id string) (*Task, error)
 	Update(id, description string) error
 	Delete(id string) error

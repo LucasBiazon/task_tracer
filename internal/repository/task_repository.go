@@ -56,6 +56,48 @@ func (r *TaskRepository) FindAll() ([]*entity.Task, error) {
 	return r.loadTasks()
 }
 
+func (r *TaskRepository) FindAllDone() ([]*entity.Task, error) {
+	tasks, err := r.loadTasks()
+	if err != nil {
+		return nil, err
+	}
+	doneTasks := []*entity.Task{}
+	for _, task := range tasks {
+		if task.Status == entity.StatusDone {
+			doneTasks = append(doneTasks, task)
+		}
+	}
+	return doneTasks, nil
+}
+
+func (r *TaskRepository) FindAllInProgress() ([]*entity.Task, error) {
+	tasks, err := r.loadTasks()
+	if err != nil {
+		return nil, err
+	}
+	inProgressTasks := []*entity.Task{}
+	for _, task := range tasks {
+		if task.Status == entity.StatusInProgress {
+			inProgressTasks = append(inProgressTasks, task)
+		}
+	}
+	return inProgressTasks, nil
+}
+
+func (r *TaskRepository) FindAllTodo() ([]*entity.Task, error) {
+	tasks, err := r.loadTasks()
+	if err != nil {
+		return nil, err
+	}
+	todoTasks := []*entity.Task{}
+	for _, task := range tasks {
+		if task.Status == entity.StatusTodo {
+			todoTasks = append(todoTasks, task)
+		}
+	}
+	return todoTasks, nil
+}
+
 func (r *TaskRepository) FindByID(id string) (*entity.Task, error) {
 	tasks, err := r.loadTasks()
 	if err != nil {
